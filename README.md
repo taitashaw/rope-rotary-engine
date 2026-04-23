@@ -18,6 +18,20 @@ RoPE is the positional encoding every frontier open-weight model uses — Llama 
 
 The engine is interface-compatible with the AXI4-Stream convention used by [flashattn-softmax-engine](https://github.com/taitashaw/flashattn-softmax-engine) and [kvcache-compress-engine](https://github.com/taitashaw/kvcache-compress-engine). Chain the three and you have the full open-source hot path for transformer inference.
 
+## Visual proof
+
+End-to-end Vivado block design (Zynq UltraScale+ PS + AXI-DMA + RoPE engine), `write_bitstream Complete` for ZCU104:
+
+![Block design with bitstream complete](docs/images/04_block_design.png)
+
+Backpressure testbench: randomized 60/60 duty cycle on `s_valid` and `m_ready`, 178 downstream stall cycles absorbed, zero data loss across 16 vectors:
+
+![Backpressure waveform](docs/images/02_waveform_backpressure_zoom.png)
+
+Baseline testbench: all 16 vectors complete, errors = 0, tokens_collected reaches 16:
+
+![Baseline waveform](docs/images/01_waveform_baseline.png)
+
 ## Quick start
 
 ```bash

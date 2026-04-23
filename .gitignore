@@ -38,3 +38,11 @@ build/
 *.pb
 *.str
 .Xil/
+
+# Vivado build artifacts (keep only artifacts/ for proof)
+build/
+*.jou
+*.log
+*.pb
+*.str
+.Xil/
